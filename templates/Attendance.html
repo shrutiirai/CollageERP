@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}ERP{% endblock title %}
+{% block body %}
+<div class="dash-content">
+    <div class="overview">
+        <div class="title">
+            {% if staffs %}
+                {% for staff in staffs %}
+                    <span class="text" style="font-size: 50px; margin-top: -50px;">Attendance: {{ staff.first_name }} {{ staff.last_name }}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Date</th>
+                    <th>Is Present</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attendance in enrollments %}
+                    <tr>
+                        <td>{{ attendance.student }}</td>
+                        <td>{{ attendance.date }}</td>
+                        <td>{{ attendance.is_present }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">No attendance records found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body %}

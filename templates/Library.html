@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Library | ScholarSync{% endblock title %}
+
+{% block body %}
+    <div class="dash-content">
+        <div class="title">
+            <span class="text" style="font-size: 50px; margin-top: -50px;">Library</span>
+        </div>
+        {% if students %}
+        <div class="overview">
+            <div class="activity">
+                {% for student in students %}
+                    <div class="title">
+                        <span class="text">Issue Books:</span>
+                    </div>
+                    {% if student.issued_books %}
+                        <div class="boxes">
+                            {% for issue in student.issued_books %}
+                                <div class="box box1">
+                                    <span class="text">{{ issue.book.book_title }} - {{ issue.book.book_author }}</span>
+                                    <span class="number">Due Date: {{ issue.due_date }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="box box1">
+                            <span class="text">No books currently issued.</span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% if staffs %}
+            {% for staff in staffs %}
+                {% if staff.user == request.user %}
+                    <div class="overview">
+                        <div class="activity">
+                            <div class="title">
+                                <span class="text">Issue Books:</span>
+                            </div>
+                            {% if issued_books %}
+                                <div class="boxes">
+                                    {% for issue in issued_books %}
+                                        <div class="box box1">
+                                            <span class="text">{{ issue.book.book_title }} - {{ issue.book.book_author }}</span>
+                                            <span class="number">Due Date: {{ issue.due_date }}</span>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="box box1">
+                                    <span class="text">No books currently issued.</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="activity">
+                            <div class="title">
+                                <span class="text">Available Books:</span>
+                            </div>
+                            {% if available_books %}
+                                <div class="activity-data">
+                                    {% for book in available_books %}
+                                        <div class="data names">
+                                            <span class="data-title">{{ book.book_title }} - {{ book.book_author }}</span>
+                                            <form action="{% url 'book_allocate' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="book_id" value="{{ book.id }}">
+                                                <select name="student">
+                                                    <option value="">-- Select Student --</option>
+                                                    {% for student in student %}
+                                                        <option value="{{ student.id }}">{{ student.first_name }} {{ student.last_name }}</option>
+                                                   {% endfor %}
+                                                </select>
+                                                <button class="btn" type="submit">Allocate</button>
+                                            </form>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="data names">
+                                    <span class="data-title">No books available in the library.</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock body %}

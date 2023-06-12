@@ -1,0 +1,136 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>{% block title %} {% endblock title %}</title>
+</head>
+
+<body>
+ <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                {% load static %}
+               <img src="{% static 'images/logo.png' %}" alt="">
+            </div>
+            <span class="logo_name">ScholarSync</span>
+        </div>
+        <div class="menu-items">
+            {% if students %}
+            <ul class="nav-links">
+                <li><a href="/">
+                    {%load static %}
+                    <img src="{% static 'images/home.png' %}">
+                    <span class="link-name">Dashboard</span>
+                </a></li>
+                <li><a href="/library">
+                    {%load static %}
+                    <img src="{% static 'images/book.png' %}">
+                    <span class="link-name">Library</span>
+                </a></li>
+                <li><a href="/attendance">
+                    {%load static %}
+                    <img src="{% static 'images/attendance.png' %}">
+                    <span class="link-name">Attendance</span>
+                </a></li>
+                <li><a href="/finance">
+                    {%load static %}
+                    <img src="{% static 'images/fees.png' %}">
+                    <span class="link-name">Fees</span>
+                </a></li>
+                <li><a href="/exam">
+                    {%load static %}
+                    <img src="{% static 'images/exam.png' %}">
+                    <span class="link-name">Exam</span>
+                </a></li>
+            </ul>
+     {% endif %}
+     {% if staffs %}
+            <ul class="nav-links">
+                <li><a href="/">
+                    {%load static %}
+                    <img src="{% static 'images/home.png' %}">
+                    <span class="link-name">Dashboard</span>
+                </a></li>
+                <li><a href="/student">
+                    {%load static %}
+                    <img src="{% static 'images/student.png' %}">
+                    <span class="link-name">Students</span>
+                </a></li>
+                <li><a href="/course">
+                    {%load static %}
+                    <img src="{% static 'images/online-course.png' %}">
+                    <span class="link-name">Course</span>
+                </a></li>
+                <li><a href="/library">
+                    {%load static %}
+                    <img src="{% static 'images/book.png' %}">
+                    <span class="link-name">Library</span>
+                </a></li>
+                <li><a href="/attendance">
+                    {%load static %}
+                    <img src="{% static 'images/attendance.png' %}">
+                    <span class="link-name">Attendance</span>
+                </a></li>
+                <li><a href="/finance">
+                    {%load static %}
+                    <img src="{% static 'images/fees.png' %}">
+                    <span class="link-name">Fees</span>
+                </a></li>
+                <li><a href="/exam">
+                    {%load static %}
+                    <img src="{% static 'images/exam.png' %}">
+                    <span class="link-name">Exam</span>
+                </a></li>
+                <li><a href="/placement">
+                    {%load static %}
+                    <img src="{% static 'images/recruitment.png' %}">
+                    <span class="link-name">Placement</span>
+                </a></li>
+            </ul>
+            {% endif %}
+            <ul class="logout-mode">
+                <li><a href="/logout">
+                    {%load static %}
+                    <img src="{% static 'images/logout.png' %}">
+                    <span class="link-name">Logout</span>
+                </a></li>
+                <li class="mode">
+                    <a href="#">
+                        <i class="uil uil-moon"></i>
+                    <span class="link-name">Dark Mode</span>
+                </a>
+                <div class="mode-toggle">
+                  <span class="switch"></span>
+                </div>
+            </li>
+            </ul>
+        </div>
+
+    </nav>
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+            {% for data in staffs %}
+            <img src="{{data.image.url}}" alt="">
+            {% endfor %}
+            {% for data in students %}
+            <img src="{{data.image.url}}" alt="">
+            {% endfor %}
+        </div>
+        {% block body %}
+
+        {% endblock body %}
+    </section>
+    {% load static %}
+    <script src="{% static 'script.js' %}"></script>
+</body>
+
+</html>

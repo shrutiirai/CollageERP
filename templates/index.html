@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | ScholarSync{% endblock title %}
+{% block body %}
+    <div class="dash-content">
+        <div class="overview">
+            <div class="title">
+                {% if students %}
+                    {% for students in students %}
+                        <span class="text">Welcome {{ students.first_name }} {{ students.last_name }}</span>
+                    {% endfor %}
+                {% endif %}
+
+                {% if staffs %}
+                    {% for staff in staffs %}
+                        <span class="text">Welcome {{ staff.first_name }} {{ staff.last_name }}</span>
+                    {% endfor %}
+                {% endif %}
+                {% for data in students %}
+                <img src="{{data.image.url}}" alt="">
+                {% endfor %}
+                {% for data in staffs %}
+                <img src="{{data.image.url}}" alt="">
+                {% endfor %}
+            </div>
+            <div class="activity">
+                {% if students %}
+                    {% for students in students %}
+                        <div class="activity-data">
+                            <div class="data type">
+                                <span class="data-title">Enrollment No.</span>
+                                {% for enrollment in students.enrollment_set.all %}
+                                    <span class="data-list">{{ enrollment.id }}</span>
+                                {% empty %}
+                                    <span class="data names">No enrollments</span>
+                                {% endfor %}
+                            </div>
+                            <div class="data names">
+                                <span class="data-title">Name</span>
+                                <span class="data-list">{{ students.first_name }} {{ students.last_name }}</span>
+                            </div>
+                            <div class="data email">
+                                <span class="data-title">Email</span>
+                                <span class="data-list">{{ students.email }}</span>
+                            </div>
+                            <div class="data joined">
+                                <span class="data-title">Date of Birth</span>
+                                <span class="data-list">{{ students.dob }}</span>
+                            </div>
+                            <div class="data status">
+                                <span class="data-title">Phone No.</span>
+                                <span class="data-list">{{ students.phone }}</span>
+                            </div>
+                            <div class="data status">
+                                <span class="data-title">Gender</span>
+                                <span class="data-list">{{ students.gender }}</span>
+                            </div>
+                            <div class="data status">
+                                {% for course in courses %}
+                                    <span class="data-title">Course:</span>
+                                    <span class="data-list">{{ course.name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="activity">
+                {% if staffs %}
+                    {% for staff in staffs %}
+                        <div class="activity-data">
+                            <div class="data names">
+                                <span class="data-title">Name</span>
+                                <span class="data-list">{{ staff.first_name }} {{ staff.last_name }}</span>
+                            </div>
+                            <div class="data email">
+                                <span class="data-title">Email</span>
+                                <span class="data-list">{{ staff.email }}</span>
+                            </div>
+                            <div class="data status">
+                                <span class="data-title">Phone No.</span>
+                                <span class="data-list">{{ staff.phone }}</span>
+                            </div>
+                            <div class="data status">
+                                <span class="data-title">Gender</span>
+                                <span class="data-list">{{ staff.gender }}</span>
+                            </div>
+                             <div class="data status">
+                                <span class="data-title">Department</span>
+                                <span class="data-list">{{ staff.department }}</span>
+                            </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock body %}

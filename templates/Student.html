@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}ERP{% endblock title %}
+{% block body %}
+<div class="dash-content">
+        <div class="overview">
+            <div class="title">
+                <span class="text">Students:</span>
+            </div>
+            <div class="activity">
+                {% for students in student %}
+                    <div class="activity-data">
+                        <div class="data type">
+                            <span class="data-title">Enrollment No.</span>
+                            {% for enrollment in students.enrollment_set.all %}
+                                <span class="data-list">{{ enrollment.id }}</span>
+                            {% empty %}
+                                <span class="data-list">No enrollments</span>
+                            {% endfor %}
+                        </div>
+                        <div class="data names">
+                            <span class="data-title">Name</span>
+                            <span class="data-list">{{ students.first_name }} {{ students.last_name }}</span>
+                        </div>
+                        <div class="data email">
+                            <span class="data-title">Email</span>
+                            <span class="data-list">{{ students.email }}</span>
+                        </div>
+                        <div class="data joined">
+                            <span class="data-title">Date of Birth</span>
+                            <span class="data-list">{{ students.dob }}</span>
+                        </div>
+                        <div class="data status">
+                            <span class="data-title">Phone No.</span>
+                            <span class="data-list">{{ students.phone }}</span>
+                        </div>
+                        <div class="data status">
+                            <span class="data-title">Gender</span>
+                            <span class="data-list">{{ students.gender }}</span>
+                        </div>
+                        <div class="data status">
+                            {% for course in courses %}
+                                <span class="data-title">Course:</span>
+                                <span class="data-list">{{ course.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                <hr>
+                {% endfor %}
+            </div>
+        </div>
+</div>
+{% endblock body %}
